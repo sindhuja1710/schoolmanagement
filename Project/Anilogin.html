@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>School Student Portal</title>
+
+
+<script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+<style>
+    *{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
+}
+
+body{
+
+height:100vh;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+background:#1e3a8a;
+
+overflow:hidden;
+
+}
+
+/* particles */
+
+#particles-js{
+
+position:absolute;
+
+width:100%;
+
+height:100%;
+
+}
+
+/* card */
+
+.card{
+
+width:360px;
+
+padding:40px;
+
+background:rgba(255,255,255,0.1);
+
+backdrop-filter:blur(15px);
+
+border-radius:15px;
+
+text-align:center;
+
+color:white;
+
+box-shadow:0 0 20px rgba(0,0,0,0.3);
+
+position:relative;
+
+}
+
+/* logo */
+
+.logo{
+
+width:80px;
+
+margin-bottom:10px;
+
+}
+
+/* form */
+
+form{
+
+display:flex;
+
+flex-direction:column;
+
+gap:18px;
+
+}
+
+#registerForm{
+display:none;
+}
+
+/* floating inputs */
+
+.input-box{
+
+position:relative;
+
+}
+
+.input-box input{
+
+width:100%;
+
+padding:10px;
+
+border:none;
+
+border-bottom:2px solid #fff;
+
+background:transparent;
+
+color:white;
+
+outline:none;
+
+}
+
+.input-box label{
+
+position:absolute;
+
+left:0;
+
+top:10px;
+
+color:#ddd;
+
+transition:0.3s;
+
+}
+
+.input-box input:focus + label,
+.input-box input:valid + label{
+
+top:-10px;
+
+font-size:12px;
+
+}
+
+/* button */
+
+button{
+
+padding:10px;
+
+border:none;
+
+border-radius:5px;
+
+background:#3b82f6;
+
+color:white;
+
+cursor:pointer;
+
+font-weight:bold;
+
+}
+
+/* links */
+
+span{
+
+color:#93c5fd;
+
+cursor:pointer;
+
+}
+
+/* mobile */
+
+@media(max-width:500px){
+
+.card{
+width:90%;
+}
+
+}
+</style>
+</head>
+
+<body>
+
+<div id="particles-js"></div>
+
+<div class="container">
+
+<div class="card">
+
+<img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" class="logo">
+
+<h2 id="title">Student Login</h2>
+
+<!-- LOGIN -->
+
+<form id="loginForm">
+
+<div class="input-box">
+<input type="text" required>
+<label>Student ID</label>
+</div>
+
+<div class="input-box">
+<input type="password" required>
+<label>Password</label>
+</div>
+
+<button>Login</button>
+
+<p>
+New student?
+<span onclick="showRegister()">Register</span>
+</p>
+
+</form>
+
+
+<!-- REGISTER -->
+
+<form id="registerForm">
+
+<div class="input-box">
+<input type="text" required>
+<label>Full Name</label>
+</div>
+
+<div class="input-box">
+<input type="text" required>
+<label>Student ID</label>
+</div>
+
+<div class="input-box">
+<input type="password" required>
+<label>Password</label>
+</div>
+
+<button>Register</button>
+
+<p>
+Already have account?
+<span onclick="showLogin()">Login</span>
+</p>
+
+</form>
+
+</div>
+
+</div>
+
+<script>
+    let loginForm = document.getElementById("loginForm")
+let registerForm = document.getElementById("registerForm")
+let title = document.getElementById("title")
+
+function showRegister(){
+
+loginForm.style.display="none"
+registerForm.style.display="flex"
+title.innerText="Student Register"
+
+}
+
+function showLogin(){
+
+loginForm.style.display="flex"
+registerForm.style.display="none"
+title.innerText="Student Login"
+
+}
+
+/* particles */
+
+particlesJS("particles-js", {
+
+particles: {
+
+number: { value: 60 },
+
+color: { value: "#ffffff" },
+
+shape: { type: "circle" },
+
+opacity: { value: 0.4 },
+
+size: { value: 3 },
+
+move: { enable: true, speed: 2 }
+
+}
+
+});
+</script>
+
+</body>
+</html>

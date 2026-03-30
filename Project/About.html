@@ -1,0 +1,402 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About - Vidhya Sagar Global School</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
+}
+
+body{
+background:#f4f6f9;
+}
+
+/* HEADER */
+
+.header{
+background:#8ebbee;
+color:white;
+padding:15px;
+text-align:center;
+height: 100px;
+}
+
+.logo-area{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:15px;
+
+}
+
+.logo-area img{
+width:100px;
+
+}
+
+/* NAVBAR */
+
+nav{
+background:#004080;
+text-align:center;
+padding:12px;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+margin:0 15px;
+font-weight:bold;
+}
+
+nav a:hover{
+color:yellow;
+}
+
+
+
+/* ABOUT SECTION */
+
+.about-section{
+padding:80px 20px;
+background:linear-gradient(to right,#eef2f7,#ffffff);
+text-align:center;
+}
+
+.about-section h2{
+font-size:36px;
+color:#002b5c;
+margin-bottom:40px;
+}
+
+.about-container{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:50px;
+flex-wrap:wrap;
+margin-bottom:50px;
+}
+
+.about-image img{
+width:450px;
+border-radius:12px;
+transition:0.5s;
+box-shadow:0 10px 25px rgba(0,0,0,0.2);
+height: 450px;
+
+}
+
+.about-image img:hover{
+transform:scale(1.08);
+}
+
+.about-text{
+max-width:500px;
+text-align:left;
+font-size:17px;
+}
+
+.about-text p{
+margin-bottom:15px;
+}
+
+/* FEATURE CARDS */
+
+.features{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:25px;
+max-width:1100px;
+margin:auto;
+}
+
+.feature-card{
+background:white;
+padding:30px;
+border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+transition:0.4s;
+cursor:pointer;
+}
+
+.feature-card:hover{
+transform:translateY(-10px);
+box-shadow:0 12px 25px rgba(0,0,0,0.2);
+background:#004080;
+color:white;
+}
+
+.feature-icon{
+font-size:40px;
+margin-bottom:10px;
+}
+
+/* STATS */
+
+.stats{
+display:flex;
+justify-content:center;
+gap:30px;
+flex-wrap:wrap;
+padding:60px 20px;
+background:white;
+}
+
+.stat-box{
+background:#f4f6f9;
+padding:25px;
+border-radius:10px;
+width:200px;
+text-align:center;
+box-shadow:0 3px 10px rgba(0,0,0,0.1);
+}
+
+.stat-box h3{
+font-size:32px;
+color:#004080;
+}
+
+/* TESTIMONIAL */
+
+.testimonials{
+padding:60px 20px;
+text-align:center;
+}
+
+.testimonial-container{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:25px;
+margin-top:30px;
+}
+
+.testimonial-card{
+background:white;
+padding:25px;
+border-radius:10px;
+width:260px;
+box-shadow:0 4px 12px rgba(0,0,0,0.1);
+transition:0.4s;
+}
+
+.testimonial-card:hover{
+transform:translateY(-8px);
+}
+
+/* FOOTER */
+
+footer{
+background:#002b5c;
+color:white;
+text-align:center;
+padding:15px;
+margin-top:40px;
+}
+
+@media(max-width:768px){
+
+.about-container{
+flex-direction:column;
+}
+
+.about-image img{
+width:90%;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header class="header">
+<div class="logo-area">
+<img src="Slogo.png">
+<div>
+<h1>Vidhya Sagar Global School</h1>
+<p>Welcome to Our School</p>
+</div>
+</div>
+</header>
+
+<nav>
+<a href="index.html">🏠 Home</a>
+<a href="about.html">ℹ️ About</a>
+<a href="admission.html">📝 Admission</a>
+<a href="Academics.html">📝 Academics</a>
+<a href="alumni.html">🎓 Alumni</a>
+<a href="contact.php">📞 Contact</a>
+</nav>
+
+<!-- ABOUT -->
+
+<section class="about-section">
+
+<h2>About Our School</h2>
+
+<div class="about-container">
+
+<div class="about-image">
+<img src="VSGS.png" alt="Vidhya Sagar Global School">
+</div>
+
+<div class="about-text">
+
+<p>
+ <b>Vidhya Sagar Global School</b> provides high-quality
+education and focuses on the overall development of students.
+</p>
+
+<p>
+ We use modern teaching methods and technology to make
+learning interesting and effective.
+</p>
+
+<p>
+ Our experienced teachers support students in academics,
+sports, and extracurricular activities.
+</p>
+
+<p>
+ We believe education builds confidence, creativity,
+leadership, and strong character.
+</p>
+
+</div>
+
+</div>
+
+<div class="features">
+
+<div class="feature-card">
+<div class="feature-icon">📚</div>
+<h3>Smart Learning</h3>
+<p>Modern classrooms with digital education tools.</p>
+</div>
+
+<div class="feature-card">
+<div class="feature-icon">👩‍🏫</div>
+<h3>Expert Teachers</h3>
+<p>Dedicated teachers guiding every student.</p>
+</div>
+
+<div class="feature-card">
+<div class="feature-icon">⚽</div>
+<h3>Sports Activities</h3>
+<p>Encouraging physical fitness and teamwork.</p>
+</div>
+
+<div class="feature-card">
+<div class="feature-icon">🌍</div>
+<h3>Global Education</h3>
+<p>Preparing students for future global challenges.</p>
+</div>
+
+</div>
+
+</section>
+
+<!-- STATS -->
+
+<section class="stats">
+
+<div class="stat-box">
+<h3 id="students">0</h3>
+<p>Students</p>
+</div>
+
+<div class="stat-box">
+<h3 id="teachers">0</h3>
+<p>Teachers</p>
+</div>
+
+<div class="stat-box">
+<h3>10</h3>
+<p>Branches</p>
+</div>
+
+<div class="stat-box">
+<h3>25+</h3>
+<p>Alumni</p>
+</div>
+
+</section>
+
+<!-- TESTIMONIAL -->
+
+<section class="testimonials">
+
+<h2>What People Say</h2>
+
+<div class="testimonial-container">
+
+<div class="testimonial-card">
+<p>The school provides excellent education.</p>
+<h4>👨‍👩‍👧 Parent</h4>
+</div>
+
+<div class="testimonial-card">
+<p>Teachers helped improve my confidence.</p>
+<h4>👨‍🎓 Student</h4>
+</div>
+
+<div class="testimonial-card">
+<p>A great environment for learning.</p>
+<h4>🏆 Alumni</h4>
+</div>
+
+</div>
+
+</section>
+
+<footer>
+<p>© 2026 Vidhya Sagar Global School</p>
+</footer>
+
+<script>
+
+let slides=document.querySelectorAll(".slide");
+let index=0;
+
+function showSlide(){
+slides.forEach((s,i)=>{
+s.style.opacity=(i===index)?"1":"0";
+});
+index=(index+1)%slides.length;
+}
+
+setInterval(showSlide,3000);
+
+function animateCount(id,target){
+let count=0;
+
+let interval=setInterval(()=>{
+count++;
+document.getElementById(id).innerText=count+"+";
+if(count>=target) clearInterval(interval);
+},20);
+
+}
+
+window.onload=function(){
+
+animateCount("students",1200);
+animateCount("teachers",80);
+
+}
+
+</script>
+
+</body>
+</html>

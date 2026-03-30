@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Attendance Portal</title>
+
+<style>
+body {
+    font-family: Arial;
+    margin: 0;
+      background: linear-gradient(to bottom, #2c3e50, #b0d3dd);
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #2c3e50;
+    padding: 6px 12px;   /* reduced */
+    color: white;
+    height: 45px;        /* reduced */
+}
+
+.navbar h1 {
+    font-size: 16px;     /* smaller */
+    margin: 0;
+}
+
+#navMenu ul {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    margin: 0;
+}
+
+#navMenu ul li a {
+    text-decoration: none;
+    color: rgb(8, 8, 8);
+    font-size: 13px;
+}
+
+/* Container */
+.container {
+    max-width: 700px;
+    margin: 20px auto;
+    background:  rgb(232, 234, 235);
+    padding: 20px;
+}
+
+/* List */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    padding: 10px;
+    margin: 10px 0;
+    background: #b0d3dd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Button group (alignment fix) */
+li div {
+    display: flex;
+    gap: 6px;
+}
+
+/* Circular Buttons */
+button {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    color: rgb(5, 5, 5);
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Colors */
+.present { background: green; }
+.absent { background: red; }
+.leave { background: orange; }
+
+/* Popup */
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    background: white;
+    padding: 20px;
+    transform: translate(-50%, -50%);
+}
+</style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<div class="navbar">
+    <h1>Student Attendance Portal</h1>
+
+    <nav id="navMenu">
+        <ul>
+            <li><a href="Acls1.html">Class I</a></li>
+            <li><a href="Acls2.html">Class II</a></li>
+            <li><a href="Acls3.html">Class III</a></li>
+            <li><a href="Acls4.html">Class IV</a></li>
+            <li><a href="Acls5.html">Class V</a></li>
+        </ul>
+    </nav>
+</div>
+
+<div class="container">
+
+    <h2>Attendance Class III</h2>
+
+    <button onclick="showAddStudentForm()" style="border-radius:5px;width:auto;height:auto;padding:6px 10px;">
+        Add Student
+    </button>
+
+    <ul id="studentsList"></ul>
+
+    <div>
+        <h3>Summary</h3>
+        <p>Total Students: <span id="totalStudents">0</span></p>
+        <p>Present: <span id="totalPresent">0</span></p>
+        <p>Absent: <span id="totalAbsent">0</span></p>
+        <p>Leave: <span id="totalLeave">0</span></p>
+    </div>
+
+    <button onclick="submitAttendance()" style="border-radius:5px;width:auto;height:auto;padding:6px 10px;">
+        Submit
+    </button>
+
+    <div id="resultSection" style="display:none;"></div>
+
+</div>
+
+<!-- Add Student Popup -->
+<div id="addStudentPopup" class="popup">
+    <h2>Add Student</h2>
+    <input type="text" id="newStudentName" placeholder="Name"><br><br>
+    <input type="text" id="newStudentRoll" placeholder="Roll No"><br><br>
+    <button onclick="addStudent()" style="border-radius:5px;width:auto;height:auto;">Submit</button>
+    <button onclick="closePopup()" style="border-radius:5px;width:auto;height:auto;">Cancel</button>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    initializeDefaultData();
+    showStudentsList();
+});
+
+localStorage.clear();
+
+// Default Students
+function initializeDefaultData() {
+    if (!localStorage.getItem("students")) {
+        localStorage.setItem("students", JSON.stringify({
+            "Class A": [
+                { name: "Shena", rollNumber: "1" },
+                { name: "Vignesh", rollNumber: "2" },
+                { name: "Pooja", rollNumber: "3" },
+                { name: "Hari", rollNumber: "4" },
+                { name: "Nisha", rollNumber: "5" },
+            ]
+        }));
+    }
+}
+
+// Show Students
+function showStudentsList() {
+    const students = JSON.parse(localStorage.getItem("students")) || {};
+    const list = document.getElementById("studentsList");
+    list.innerHTML = "";
+
+    (students["Class A"] || []).forEach(st => {
+        let li = document.createElement("li");
+        li.innerHTML = `${st.name} (Roll ${st.rollNumber})`;
+
+        // Button group
+        let btnGroup = document.createElement("div");
+
+        btnGroup.appendChild(createBtn("P", "present", () => mark(li, "present")));
+        btnGroup.appendChild(createBtn("A", "absent", () => mark(li, "absent")));
+        btnGroup.appendChild(createBtn("L", "leave", () => mark(li, "leave")));
+
+        li.appendChild(btnGroup);
+        list.appendChild(li);
+    });
+}
+
+// Create Button
+function createBtn(text, cls, fn) {
+    let b = document.createElement("button");
+    b.innerText = text;
+    b.className = cls;
+    b.onclick = fn;
+    return b;
+}
+
+// Mark Attendance
+function mark(li, status) {
+    li.style.background =
+        status === "present" ? "lightgreen" :
+        status === "absent" ? "#ff9999" : "#ffe08a";
+
+    li.setAttribute("data-status", status);
+    updateSummary();
+}
+
+// Summary
+function updateSummary() {
+    let items = document.querySelectorAll("#studentsList li");
+
+    let p = 0, a = 0, l = 0;
+
+    items.forEach(i => {
+        let s = i.getAttribute("data-status");
+        if (s === "present") p++;
+        else if (s === "absent") a++;
+        else if (s === "leave") l++;
+    });
+
+    document.getElementById("totalStudents").innerText = items.length;
+    document.getElementById("totalPresent").innerText = p;
+    document.getElementById("totalAbsent").innerText = a;
+    document.getElementById("totalLeave").innerText = l;
+}
+
+// Submit
+function submitAttendance() {
+    document.getElementById("resultSection").style.display = "block";
+    document.getElementById("resultSection").innerHTML =
+        "✅ Attendance Submitted Successfully!";
+}
+
+// Popup
+function showAddStudentForm() {
+    document.getElementById("addStudentPopup").style.display = "block";
+}
+
+function closePopup() {
+    document.getElementById("addStudentPopup").style.display = "none";
+}
+
+// Add Student
+function addStudent() {
+    let name = document.getElementById("newStudentName").value;
+    let roll = document.getElementById("newStudentRoll").value;
+
+    let students = JSON.parse(localStorage.getItem("students")) || {};
+    if (!students["Class A"]) students["Class A"] = [];
+
+    students["Class A"].push({ name, rollNumber: roll });
+
+    localStorage.setItem("students", JSON.stringify(students));
+
+    closePopup();
+    showStudentsList();
+}
+</script>
+
+</body>
+</html>

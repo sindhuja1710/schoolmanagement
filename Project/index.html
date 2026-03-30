@@ -1,0 +1,513 @@
+
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vidhya Sagar Global School</title>
+
+<style>
+
+body {
+    margin:0;
+    font-family: Arial, sans-serif;
+    background:#f4f6f9;
+}
+
+/* HEADER */
+.header {
+    background:#8ebbee;
+    color:white;
+    padding:10px 0;
+    text-align:center;
+   
+}
+
+.header .logo-area {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+}
+
+.header .logo-area img {
+    width:80px;
+}
+
+.header h1 {
+    margin:0;
+    font-size:28px;
+}
+
+.header p {
+    margin:0;
+    font-size:16px;
+}
+
+/* NAVBAR */
+nav {
+    background:#004080;
+    display:flex;
+    justify-content:center;
+}
+
+nav a {
+    color:white;
+    padding:12px 20px;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+nav a:hover {
+    background:#0066cc;
+}
+
+/* HERO */
+.hero {
+    background:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),
+    url("https://images.unsplash.com/photo-1588072432836-e10032774350");
+    background-size:cover;
+    background-position:center;
+    padding:80px 20px;
+    color:white;
+}
+
+.hero-container {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:50px;
+    flex-wrap:wrap;
+}
+
+.hero-text {
+    max-width:450px;
+}
+
+.hero-text h1 {
+    font-size:36px;
+    margin-bottom:15px;
+}
+
+.hero-text p {
+    font-size:18px;
+    margin-bottom:15px;
+}
+
+.hero-text ul {
+    list-style:none;
+    padding:0;
+}
+
+.hero-text ul li {
+    margin:8px 0;
+    font-weight:bold;
+}
+
+/* ADMISSION BUTTON */
+.admission-btn {
+    display:inline-block;
+    margin-top:15px;
+    padding:12px 25px;
+    background:#ffb703;
+    color:#000;
+    font-weight:bold;
+    border-radius:30px;
+    text-decoration:none;
+    transition:0.3s;
+    box-shadow:0 4px 10px rgba(0,0,0,0.3);
+}
+
+.admission-btn:hover {
+    background:#ffaa00;
+    transform:translateY(-3px);
+}
+
+/* LOGIN FORM */
+.overlay {
+    background: rgba(0,0,0,0.7);
+    padding:30px 25px;
+    border-radius:10px;
+    width:350px;
+    color:white;
+}
+
+.overlay h2 {
+    margin-bottom:20px;
+    text-align:center;
+}
+
+.overlay input[type="text"],
+.overlay input[type="password"] {
+    width:100%;
+    padding:10px;
+    margin-bottom:15px;
+    border:none;
+    border-radius:5px;
+    font-size:16px;
+}
+
+.overlay input[type="submit"] {
+    width:100%;
+    padding:10px;
+    background:#004080;
+    color:white;
+    border:none;
+    border-radius:5px;
+    font-size:16px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.overlay input[type="submit"]:hover {
+    background:#0066cc;
+}
+
+.signup_link {
+    margin-top:10px;
+    text-align:center;
+}
+
+.signup_link a {
+    color:yellow;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+/* FEATURES */
+.features {
+    padding:50px 20px;
+    background:#eef5ff;
+}
+
+.features h2 {
+    text-align:center;
+    margin-bottom:40px;
+}
+
+.feature-container {
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:25px;
+}
+
+/* FACILITY CARDS */
+.card {
+    width:250px;
+    height:200px;
+    border-radius:10px;
+    box-shadow:0 3px 10px rgba(0,0,0,0.2);
+    background-size:cover;
+    background-position:center;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    color:white;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+    transition:0.4s;
+}
+
+.card::before {
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.55);
+}
+
+.card:hover {
+    transform:translateY(-10px) scale(1.05);
+    box-shadow:0 10px 25px rgba(0,0,0,0.4);
+}
+
+.card h3,
+.card p {
+    position:relative;
+    z-index:1;
+    padding:0 10px;
+}
+
+/* BACKGROUND IMAGES */
+.smart { background-image:url("https://images.unsplash.com/photo-1588072432836-e10032774350"); }
+.sports { background-image:url("https://images.unsplash.com/photo-1521412644187-c49fa049e84d"); }
+.library { background-image:url("https://images.unsplash.com/photo-1524995997946-a1c2e315a42f"); }
+.computer { background-image:url("https://images.unsplash.com/photo-1519389950473-47ba0277781c"); }
+.yoga { background-image:url("https://images.unsplash.com/photo-1544367567-0f2fcb009e0b"); }
+
+/* NOTICE BOARD */
+.notice {
+    padding:60px 20px;
+    text-align:center;
+    background:#fff;
+}
+
+.notice h2 {
+    margin-bottom:30px;
+}
+
+.notice-board {
+    width:60%;
+    margin:auto;
+    background:#fff;
+    border-radius:10px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.2);
+    overflow:hidden;
+    height:160px;
+    position:relative;
+}
+
+.notice-list {
+    position:absolute;
+    width:100%;
+    animation:scrollNotice 12s linear infinite;
+}
+
+.notice-item {
+    padding:15px;
+    border-bottom:1px solid #eee;
+    font-weight:bold;
+}
+
+/* SCROLL ANIMATION */
+@keyframes scrollNotice {
+    0%{top:100%;}
+    100%{top:-100%;}
+}
+
+/* FOOTER */
+footer {
+    background:#002147;
+    color:white;
+    text-align:center;
+    padding:15px;
+}
+
+/* MOBILE */
+@media(max-width:768px) {
+    .hero-container {
+        flex-direction:column;
+    }
+
+    .notice-board {
+        width:90%;
+    }
+
+    .hero-text {
+        max-width:100%;
+    }
+}
+/* LOGIN SECTION */
+.login-section {
+    padding: 60px 20px;
+    background: #eef5ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-card {
+    background: #004080;
+    color: white;
+    padding: 40px 30px;
+    border-radius: 12px;
+    width: 350px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.login-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+}
+
+.login-card h2 {
+    margin-bottom: 25px;
+    font-size: 26px;
+}
+
+.login-card input[type="text"],
+.login-card input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
+}
+
+.login-card input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background: #ffb703;
+    color: #000;
+    font-weight: bold;
+    border-radius: 30px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+}
+
+.login-card input[type="submit"]:hover {
+    background: #ffaa00;
+    transform: translateY(-2px);
+}
+
+.signup-link {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.signup-link a {
+    color: #ffb703;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.signup-link a:hover {
+    text-decoration: underline;
+}
+
+/* MOBILE RESPONSIVE */
+@media(max-width:768px) {
+    .login-card {
+        width: 90%;
+        padding: 30px 20px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+
+<div class="logo-area">
+
+<img src="Slogo.png">
+
+<div>
+<h1>Vidhya Sagar Global School</h1>
+<p>School Management System</p>
+</div>
+
+</div>
+
+</header>
+
+<nav>
+
+<a href="#">🏠 Home</a>
+<a href="#">ℹ️ About</a>
+<a href="#">📝 Admissions</a>
+<a href="#">📚 Academics</a>
+<a href="#">🎓 Alumni</a>
+<a href="#">📞 Contact</a>
+
+</nav>
+
+<section class="hero">
+
+<div class="hero-container">
+
+
+<div class="hero-text">
+
+<h1>Welcome to Vidhya Sagar Global School</h1>
+
+<p>Empowering Students for a Brighter Future through Excellence in Education, Innovation & Sports.</p>
+
+<ul style="list-style:none;padding:0;margin:20px 0;">
+<li>🌟 Inspiring Teachers & Mentors</li>
+<li>📚 Innovative Learning Programs</li>
+<li>⚽ Sports, Arts & Cultural Activities</li>
+<li>🤝 Community & Leadership Development</li>
+</ul>
+
+
+</div>
+
+<section class="login-section">
+  <div class="login-card">
+    <h2>Login to Your Account</h2>
+    <form action="logincheck.php" method="POST">
+      <input type="text" name="username" placeholder="Username" required>
+      <input type="password" name="password" placeholder="Password" required>
+      <input type="submit" value="Login">
+    </form>
+    <p class="signup-link">Not a member? <a href="signup.php">Signup</a></p>
+  </div>
+</section>
+
+</div>
+
+</section>
+
+<section class="features">
+
+<h2>Our Facilities</h2>
+
+<div class="feature-container">
+
+<div class="card smart">
+<h3>Smart Classrooms</h3>
+<p>Digital learning with smart boards.</p>
+</div>
+
+<div class="card sports">
+<h3>Sports Activities</h3>
+<p>Encouraging physical fitness.</p>
+</div>
+
+<div class="card library">
+<h3>Library</h3>
+<p>Thousands of books available.</p>
+</div>
+
+<div class="card computer">
+<h3>Computer Lab</h3>
+<p>Students learn technology.</p>
+</div>
+
+<div class="card yoga">
+<h3>Yoga Class</h3>
+<p>Relax body and mind.</p>
+</div>
+
+</div>
+
+</section>
+
+<section class="notice">
+
+<h2>Latest Notices</h2>
+
+<div class="notice-board">
+
+<div class="notice-list">
+
+<div class="notice-item">Admissions Open for 2026-27</div>
+<div class="notice-item">Annual Sports Day on March 15</div>
+<div class="notice-item">Parent Teacher Meeting on March 25</div>
+<div class="notice-item">Final Exams Start from April 10</div>
+
+</div>
+
+</div>
+
+</section>
+
+<footer>
+
+<p>© 2026 Vidhya Sagar Global School | All Rights Reserved</p>
+
+</footer>
+
+</body>
+</html>

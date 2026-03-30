@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Staff Attendance Portal</title>
+
+<style>
+
+body{
+font-family:Arial;
+margin:0;
+background:linear-gradient(to bottom,#2c3e50,#b0d3dd);
+}
+
+/* Navbar */
+
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#2c3e50;
+padding:6px 12px;
+color:white;
+height:45px;
+}
+
+.navbar h1{
+font-size:16px;
+margin:0;
+}
+
+/* Container */
+
+.container{
+max-width:700px;
+margin:20px auto;
+background:#e8eaeb;
+padding:20px;
+}
+
+/* List */
+
+ul{
+list-style:none;
+padding:0;
+}
+
+li{
+padding:10px;
+margin:10px 0;
+background:#b0d3dd;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+/* Button group */
+
+li div{
+display:flex;
+gap:6px;
+}
+
+/* Circle buttons */
+
+button{
+width:32px;
+height:32px;
+border-radius:50%;
+border:none;
+cursor:pointer;
+font-weight:bold;
+}
+
+/* Colors */
+
+.present{background:green;color:white;}
+.absent{background:red;color:white;}
+.leave{background:orange;color:white;}
+
+/* Popup */
+
+.popup{
+display:none;
+position:fixed;
+top:50%;
+left:50%;
+background:white;
+padding:20px;
+transform:translate(-50%,-50%);
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+
+<div class="navbar">
+<h1>Staff Attendance Portal</h1>
+</div>
+
+<div class="container">
+
+<h2>Teachers Attendance</h2>
+
+<button onclick="showAddStaffForm()" 
+style="border-radius:5px;width:auto;height:auto;padding:6px 10px;">
+Add Staff
+</button>
+
+<ul id="staffList"></ul>
+
+<div>
+<h3>Summary</h3>
+
+<p>Total Staff: <span id="totalStaff">0</span></p>
+<p>Present: <span id="totalPresent">0</span></p>
+<p>Absent: <span id="totalAbsent">0</span></p>
+<p>Leave: <span id="totalLeave">0</span></p>
+
+</div>
+
+<button onclick="submitAttendance()" 
+style="border-radius:5px;width:auto;height:auto;padding:6px 10px;">
+Submit
+</button>
+
+<div id="resultSection" style="display:none;"></div>
+
+</div>
+
+<!-- Add Staff Popup -->
+
+<div id="addStaffPopup" class="popup">
+
+<h2>Add Staff</h2>
+
+<input type="text" id="staffName" placeholder="Teacher Name"><br><br>
+
+<input type="text" id="staffId" placeholder="Teacher ID"><br><br>
+
+<input type="text" id="staffDegree" placeholder="Degree"><br><br>
+
+<button onclick="addStaff()" style="border-radius:5px;">Submit</button>
+
+<button onclick="closePopup()" style="border-radius:5px;">Cancel</button>
+
+</div>
+
+<script>
+
+document.addEventListener("DOMContentLoaded",()=>{
+// initializeStaff();
+showStaff();
+});
+
+/* Default Staff */
+
+function showStaff(){
+
+fetch("get_staff.php")
+.then(res=>res.json())
+.then(data=>{
+
+let list=document.getElementById("staffList");
+list.innerHTML="";
+
+data.forEach(t=>{
+
+let li=document.createElement("li");
+
+li.innerHTML=`${t.name} (ID ${t.staff_id}) - ${t.degree}`;
+
+let btnGroup=document.createElement("div");
+
+btnGroup.appendChild(createBtn("P","present",()=>mark(li,"present",t.staff_id)));
+btnGroup.appendChild(createBtn("A","absent",()=>mark(li,"absent",t.staff_id)));
+btnGroup.appendChild(createBtn("L","leave",()=>mark(li,"leave",t.staff_id)));
+
+li.appendChild(btnGroup);
+
+list.appendChild(li);
+
+});
+
+updateSummary();
+
+});
+
+}
+
+/* Button Create */
+
+function createBtn(text,cls,fn){
+
+let b=document.createElement("button");
+
+b.innerText=text;
+
+b.className=cls;
+
+b.onclick=fn;
+
+return b;
+
+}
+
+/* Mark Attendance */
+
+
+function mark(li,status,staff_id){
+
+li.style.background=
+status==="present"?"lightgreen":
+status==="absent"?"#ff9999":"#ffe08a";
+
+li.setAttribute("data-status",status);
+
+fetch("Ssave_attendance.php",{
+method:"POST",
+headers:{"Content-Type":"application/x-www-form-urlencoded"},
+body:"staff_id="+staff_id+"&status="+status
+});
+
+updateSummary();
+
+}
+/* Summary */
+
+function updateSummary(){
+
+let items=document.querySelectorAll("#staffList li");
+
+let p=0,a=0,l=0;
+
+items.forEach(i=>{
+
+let s=i.getAttribute("data-status");
+
+if(s==="present")p++;
+else if(s==="absent")a++;
+else if(s==="leave")l++;
+
+});
+
+document.getElementById("totalStaff").innerText=items.length;
+
+document.getElementById("totalPresent").innerText=p;
+
+document.getElementById("totalAbsent").innerText=a;
+
+document.getElementById("totalLeave").innerText=l;
+
+}
+
+/* Submit */
+
+function submitAttendance(){
+
+document.getElementById("resultSection").style.display="block";
+
+document.getElementById("resultSection").innerHTML=
+"✅ Staff Attendance Submitted Successfully!";
+
+}
+
+/* Popup */
+
+function showAddStaffForm(){
+
+document.getElementById("addStaffPopup").style.display="block";
+
+}
+
+function closePopup(){
+
+document.getElementById("addStaffPopup").style.display="none";
+
+}
+
+
+function addStaff(){
+
+let name=document.getElementById("staffName").value;
+let id=document.getElementById("staffId").value;
+let degree=document.getElementById("staffDegree").value;
+
+fetch("add_staff.php",{
+method:"POST",
+headers:{"Content-Type":"application/x-www-form-urlencoded"},
+body:"name="+name+"&staff_id="+id+"&degree="+degree
+})
+.then(res=>res.text())
+.then(data=>{
+alert("Staff Added");
+showStaff();
+closePopup();
+});
+
+}
+</script>
+
+</body>
+</html>

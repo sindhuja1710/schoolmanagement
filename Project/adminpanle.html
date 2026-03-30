@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About - Vidhya Sagar Global School</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
+}
+
+body{
+line-height:1.6;
+}
+
+/* HEADER */
+
+header{
+background:#002b5c;
+color:white;
+text-align:center;
+padding:20px;
+}
+
+/* NAVBAR */
+
+nav{
+background:#004080;
+text-align:center;
+padding:12px;
+}
+
+nav a{
+color:white;
+margin:0 15px;
+text-decoration:none;
+font-weight:bold;
+}
+
+nav a:hover{
+color:yellow;
+}
+
+/* SLIDER */
+
+.slider{
+width:100%;
+height:300px;
+overflow:hidden;
+position:relative;
+}
+
+.slide{
+width:100%;
+height:300px;
+position:absolute;
+background-size:cover;
+background-position:center;
+transition:1s;
+}
+
+.slide1{background-image:url('https://images.unsplash.com/photo-1588072432836-e10032774350');}
+.slide2{background-image:url('https://images.unsplash.com/photo-1509062522246-3755977927d7');}
+.slide3{background-image:url('https://images.unsplash.com/photo-1577896851231-70ef18881754');}
+
+/* ABOUT */
+
+.about{
+padding:50px;
+text-align:center;
+background:#f4f4f4;
+}
+
+.about p{
+margin:15px 0;
+max-width:900px;
+margin-left:auto;
+margin-right:auto;
+}
+
+/* STATS */
+
+.stats{
+display:flex;
+justify-content:center;
+gap:20px;
+flex-wrap:wrap;
+padding:40px;
+background:#eef2ff;
+}
+
+.stat{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 2px 5px rgba(0,0,0,0.2);
+width:200px;
+text-align:center;
+}
+
+/* VIDEO */
+
+.video{
+padding:50px;
+text-align:center;
+}
+
+.video iframe{
+width:80%;
+height:300px;
+border:none;
+border-radius:10px;
+}
+
+/* TESTIMONIAL */
+
+.testimonial{
+background:#004080;
+color:white;
+padding:50px;
+text-align:center;
+}
+
+.testimonial-box{
+max-width:600px;
+margin:auto;
+}
+
+/* FOOTER */
+
+footer{
+background:#002b5c;
+color:white;
+text-align:center;
+padding:15px;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.video iframe{
+width:100%;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Vidhya Sagar Global School</h1>
+<p>School Management System</p>
+</header>
+
+<nav>
+<a href="#">About</a>
+<a href="#">Admission</a>
+<a href="#">Academics</a>
+<a href="#">Contact</a>
+</nav>
+
+<!-- IMAGE SLIDER -->
+
+<div class="slider">
+
+<div class="slide slide1"></div>
+<div class="slide slide2"></div>
+<div class="slide slide3"></div>
+
+</div>
+
+<!-- ABOUT CONTENT -->
+
+<section class="about">
+
+<h2>About Our School</h2>
+
+<p>
+Vidhya Sagar Global School is committed to providing quality education and
+building strong character in students. Our mission is to create responsible,
+knowledgeable, and confident individuals.
+</p>
+
+<p>
+We use modern teaching methods and a digital school management system
+to improve learning and communication between students, teachers, and parents.
+</p>
+
+<p>
+Our school focuses on both academic excellence and extracurricular activities
+such as sports, arts, music, and cultural programs.
+</p>
+
+<p>
+We provide individual attention to every student and encourage innovation,
+creativity, and leadership skills.
+</p>
+
+</section>
+
+<!-- STATS -->
+
+<section class="stats">
+
+<div class="stat">
+<h2 id="students">0</h2>
+<p>Students</p>
+</div>
+
+<div class="stat">
+<h2 id="teachers">0</h2>
+<p>Teachers</p>
+</div>
+
+<div class="stat">
+<h2>3</h2>
+<p>Branches</p>
+</div>
+
+</section>
+
+<!-- VIDEO -->
+
+<section class="video">
+
+<h2>Our School Campus</h2>
+
+<!-- <iframe src= "https://www.youtube.com/@VSGS/videos"></iframe>   -->
+
+</section>
+
+<!-- TESTIMONIAL -->
+
+<section class="testimonial">
+
+<div class="testimonial-box">
+
+<h2>What Students Say</h2>
+
+<p id="testimonialText">
+"This school changed my life. Teachers are very supportive and friendly."
+</p>
+
+</div>
+
+</section>
+
+<footer>
+<p>© 2026 Vidhya Sagar Global School</p>
+</footer>
+
+<script>
+
+/* SLIDER */
+
+let slides = document.querySelectorAll(".slide");
+let index = 0;
+
+function showSlide(){
+slides.forEach((s,i)=>{
+s.style.opacity = (i===index)? "1":"0";
+});
+index = (index+1)%slides.length;
+}
+
+setInterval(showSlide,3000);
+
+/* COUNTER */
+
+function count(id,target){
+let c=0;
+let interval=setInterval(()=>{
+c++;
+document.getElementById(id).innerText=c+"+";
+if(c>=target) clearInterval(interval);
+},20);
+}
+
+window.onload=function(){
+count("students",1200);
+count("teachers",80);
+};
+
+/* TESTIMONIAL */
+
+let texts=[
+"Teachers are very supportive and friendly.",
+"Best school with excellent education system.",
+"Great environment for learning and growth."
+];
+
+let tIndex=0;
+
+setInterval(()=>{
+tIndex=(tIndex+1)%texts.length;
+document.getElementById("testimonialText").innerText=texts[tIndex];
+},3000);
+
+</script>
+
+</body>
+</html>

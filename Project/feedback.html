@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Feedback System with Rating</title>
+
+<style>
+body {
+  font-family: Arial;
+  background: #f4f7fb;
+}
+
+.container {
+  width: 420px;
+  margin: 30px auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+h2 {
+  text-align: center;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 8px;
+  margin: 5px 0;
+}
+
+/* ⭐ Rating Style */
+.rating span {
+  font-size: 25px;
+  cursor: pointer;
+  color: #ccc;
+}
+
+.rating .active {
+  color: gold;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background: green;
+  color: white;
+  border: none;
+}
+
+table {
+  width: 90%;
+  margin: 20px auto;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
+
+th {
+  background: #4CAF50;
+  color: white;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h2>Parent Feedback</h2>
+
+  <form id="form">
+    <input type="text" id="name" placeholder="Parent Name" required>
+    <input type="text" id="student" placeholder="Student Name">
+    <input type="text" id="teacher" placeholder="Teacher Name">
+
+    <label>Rating:</label>
+    <div class="rating" id="rating">
+      <span data-value="1">★</span>
+      <span data-value="2">★</span>
+      <span data-value="3">★</span>
+      <span data-value="4">★</span>
+      <span data-value="5">★</span>
+    </div>
+
+    <textarea id="feedback" placeholder="Feedback" required></textarea>
+    <button type="submit">Submit</button>
+  </form>
+</div>
+
+<h2 style="text-align:center;">📋 Feedback List</h2>
+
+<table id="feedbackTable">
+  <thead>
+    <tr>
+      <th>Parent</th>
+      <th>Student</th>
+      <th>Teacher</th>
+      <th>Rating</th>
+      <th>Feedback</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<script>
+const form = document.getElementById("form");
+const tableBody = document.querySelector("#feedbackTable tbody");
+const stars = document.querySelectorAll("#rating span");
+
+let ratingValue = 0;
+
+// ⭐ Star Click Logic
+stars.forEach(star => {
+  star.addEventListener("click", () => {
+    ratingValue = star.getAttribute("data-value");
+
+    stars.forEach(s => s.classList.remove("active"));
+    for (let i = 0; i < ratingValue; i++) {
+      stars[i].classList.add("active");
+    }
+  });
+});
+
+// Load data
+let feedbacks = JSON.parse(localStorage.getItem("feedbacks")) || [];
+
+function displayFeedback() {
+  tableBody.innerHTML = "";
+  feedbacks.forEach(f => {
+
+    let starsDisplay = "★".repeat(f.rating) + "☆".repeat(5 - f.rating);
+
+    let row = `<tr>
+      <td>${f.name}</td>
+      <td>${f.student}</td>
+      <td>${f.teacher}</td>
+      <td>${starsDisplay}</td>
+      <td>${f.feedback}</td>
+    </tr>`;
+
+    tableBody.innerHTML += row;
+  });
+}
+
+// Show on load
+displayFeedback();
+
+form.addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  let newFeedback = {
+    name: document.getElementById("name").value,
+    student: document.getElementById("student").value,
+    teacher: document.getElementById("teacher").value,
+    feedback: document.getElementById("feedback").value,
+    rating: ratingValue
+  };
+
+  feedbacks.push(newFeedback);
+  localStorage.setItem("feedbacks", JSON.stringify(feedbacks));
+
+  form.reset();
+  ratingValue = 0;
+  stars.forEach(s => s.classList.remove("active"));
+
+  displayFeedback();
+});
+</script>
+
+</body>
+</html>

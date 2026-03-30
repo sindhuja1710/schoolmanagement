@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scholarship Program</title>
+
+<style>
+body {
+    font-family: Arial;
+    margin: 0;
+    background: #f4f6f9;
+}
+
+/* Header */
+.header {
+    background: #4172a3;
+    color: white;
+    text-align: center;
+    padding: 15px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+/* Container */
+.container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+/* Card */
+.card {
+    background: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-left: 6px solid #3498db;
+    border-radius: 8px;
+}
+
+/* Highlight */
+.highlight {
+    background: #e8f8f5;
+    padding: 15px;
+    border-left: 6px solid green;
+    font-weight: bold;
+}
+
+/* Form */
+form {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+input, select {
+    width: 80%;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+button {
+    padding: 10px;
+    background: #3498db;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+/* Result */
+#result {
+    margin-top: 15px;
+    font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <h1>🎓 Scholarship Program</h1>
+</div>
+
+<div class="container">
+
+    <!-- Scholarship Info -->
+    <div class="card">
+        <h2>Merit-Based Scholarship</h2>
+        <p>Students with excellent academic performance are eligible for scholarships based on their marks.</p>
+    </div>
+
+    <div class="card">
+        <h2>Performance-Based Scholarship</h2>
+        <p>Scholarships are awarded based on overall academic and extracurricular performance.</p>
+    </div>
+
+    <div class="highlight">
+        🎉 No Fees for Students Scoring 100% Marks in All Subjects!
+    </div>
+
+    <!-- Eligibility Form -->
+    <form onsubmit="checkScholarship(event)">
+        <h3>Check Your Eligibility</h3>
+
+        <input type="text" id="name" placeholder="Enter your name" required>
+        
+    <input type="number" id="marks" max="100" min="0" 
+           placeholder="Enter your percentage (Max 100%)" 
+           oninput="autoPerformance()"><br><br>
+
+    <label>Performance:</label><br>
+    <select id="performance">
+        <option value="average">Average</option>
+        <option value="good">Good</option>
+        <option value="excellent">Excellent</option>
+    </select><br><br>
+
+    <button type="submit">Check Eligibility</button>
+
+    <div id="result"></div>
+</form>
+
+<script>
+// AUTO SELECT PERFORMANCE BASED ON MARKS
+function autoPerformance() {
+    let marks = parseFloat(document.getElementById("marks").value);
+    let performance = document.getElementById("performance");
+
+    if (isNaN(marks)) return;
+
+    if (marks >= 90) {
+        performance.value = "excellent";
+    } 
+    else if (marks >= 75) {
+        performance.value = "good";
+    } 
+    else {
+        performance.value = "average";
+    }
+}
+
+// CHECK SCHOLARSHIP
+function checkScholarship(e) {
+    e.preventDefault();
+
+    let marks = parseFloat(document.getElementById("marks").value);
+    let performance = document.getElementById("performance").value;
+    let result = document.getElementById("result");
+
+    // VALIDATION
+    if (isNaN(marks) || marks < 0 || marks > 100) {
+        result.innerHTML = "⚠️ Enter valid percentage (0 - 100 only)";
+        result.style.color = "orange";
+        return;
+    }
+
+    // LOGIC
+    if (marks === 100 && performance === "excellent") {
+        result.innerHTML = "🎉 FULL SCHOLARSHIP! No Fees (Centum Student)";
+        result.style.color = "green";
+    }
+    else if (marks >= 90 && performance === "excellent") {
+        result.innerHTML = "🏆 Merit-Based Scholarship";
+        result.style.color = "blue";
+    }
+    else if (marks >= 75 && performance === "good") {
+        result.innerHTML = "👍 Performance-Based Scholarship";
+        result.style.color = "orange";
+    }
+    else {
+        result.innerHTML = "❌ Not Eligible";
+        result.style.color = "red";
+    }
+}
+</script>
+
+</div>
+
+<script>
+function checkScholarship(e) {
+    e.preventDefault();
+
+    let marks = parseFloat(document.getElementById("marks").value);
+    let performance = document.getElementById("performance").value;
+    let result = document.getElementById("result");
+
+    if (marks === 100) {
+        result.innerHTML = "🎉 Congratulations! You get 100% Scholarship (No Fees).";
+        result.style.color = "green";
+    }
+    else if (marks >= 90 || performance === "excellent") {
+        result.innerHTML = "✅ You are eligible for Merit-Based Scholarship.";
+        result.style.color = "blue";
+    }
+    else if (marks >= 75 || performance === "good") {
+        result.innerHTML = "👍 You are eligible for Performance-Based Scholarship.";
+        result.style.color = "orange";
+    }
+    else {
+        result.innerHTML = "❌ Sorry, you are not eligible for scholarship.";
+        result.style.color = "red";
+    }
+}
+</script>
+
+</body>
+</html>
